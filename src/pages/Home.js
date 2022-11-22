@@ -30,11 +30,34 @@ const Home = () => {
     },
   ];
 
+  let homPodCardData = [
+    {
+      title: "Lock doors at bedtime",
+      icon: "https://www.apple.com/v/home-app/c/images/overview/icon/icon_lock__fpt8n2i4qyqi_large_2x.png",
+      text: "Automate the locking of all the doors in your house.",
+    },
+    {
+      title: "View live camerase",
+      icon: "https://www.apple.com/v/home-app/c/images/overview/icon/icon_cameras__d4j55gv0ac6e_large_2x.png",
+      text: "Automate the locking of all the doors in your house.",
+    },
+    {
+      title: "Turn lights on at sunset",
+      icon: "https://www.apple.com/v/home-app/c/images/overview/icon/icon_lights_sunset__d186ly8k3hg2_large_2x.png",
+      text: "Automate the locking of all the doors in your house.",
+    },
+  ];
+
   return (
     <div className="w-full bg-slate-100 relative">
       <Header />
       <section className=" w-full h-screen flex flex-col  items-center ">
-        <div className="h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px]"></div>
+        <div className="h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px] flex items-center justify-center">
+          <img
+            src="https://www.pngall.com/wp-content/uploads/2016/04/Home-Download-PNG.png"
+            className="h-[100px] w-[100px]"
+          />
+        </div>
         <div className="mt-[55px]">
           <p className="text-[#1d1d1f] font-[700] text-[24px]"> Home app </p>
         </div>
@@ -85,22 +108,24 @@ const Home = () => {
       </section>
 
       <section className="h-screen px-[100px]">
-        <div className="mt-[30px]  flex gap-[30px] ">
-          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px]  flex items-center px-[90px]">
-            <div className=" flex items-center flex-col">
-              <div className="h-[100px] w-[100px] overflow-hidden  ">
-                <img src="https://www.apple.com/v/home-app/c/images/overview/icon/icon_lock__fpt8n2i4qyqi_large_2x.png" />{" "}
+        <div className="mt-[30px]  flex gap-[30px]  justify-between ">
+          {homPodCardData.map((item) => {
+            return (
+              <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px]  flex items-center px-[90px]">
+                <div className=" flex items-center flex-col">
+                  <div className="h-[100px] w-[100px] overflow-hidden  ">
+                    <img src={item.icon} />{" "}
+                  </div>
+                  <p className="text-[34px] font-[700] leading-tight text-center mt-[50px]">
+                    {item.title}
+                  </p>
+                  <p className="text-[#86868b] text-[21px] text-center mt-[20px]">
+                    {item.text}
+                  </p>
+                </div>
               </div>
-              <p className="text-[34px] font-[700] leading-tight text-center mt-[50px]">
-                Lock doors at bedtime
-              </p>
-              <p className="text-[#86868b] text-[21px] text-center mt-[20px]">
-                Automate the locking of all the doors in your house.
-              </p>
-            </div>
-          </div>
-          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px] "></div>
-          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px] "></div>
+            );
+          })}
         </div>
       </section>
 

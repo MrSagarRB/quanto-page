@@ -52,7 +52,7 @@ const NavBar = () => {
       })}{" "}
       <div
         id="google_translate_element"
-        className="absolute right-0 -bottom-11"
+        className="absolute right-0 -bottom-11 overflow-hidden"
       ></div>
     </div>
   );
