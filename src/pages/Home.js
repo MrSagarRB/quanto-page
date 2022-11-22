@@ -1,0 +1,156 @@
+import React from "react";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+
+const Home = () => {
+  let Homeschooldata = [
+    {
+      title: "Control your home with Siri",
+      link: "#",
+    },
+    {
+      title: "Create automations with the Home app",
+      link: "#",
+    },
+    {
+      title: "Share control of your home",
+      link: "#",
+    },
+    {
+      title: "Privately monitor home activities with HomeKit Secure Video",
+      link: "#",
+    },
+    {
+      title: "Set up your HomePod mini or Apple TV as a home hub",
+      link: "#",
+    },
+    {
+      title: "Secure your home network with HomeKit routers",
+      link: "#",
+    },
+  ];
+
+  return (
+    <div className="w-full bg-slate-100 relative">
+      <Header />
+      <section className=" w-full h-screen flex flex-col  items-center ">
+        <div className="h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px]"></div>
+        <div className="mt-[55px]">
+          <p className="text-[#1d1d1f] font-[700] text-[24px]"> Home app </p>
+        </div>
+        <p className="text-[100px] font-[700] text-center leading-tight w-[80%] mt-[30px]">
+          The foundation for a&nbsp;smarter home.
+        </p>
+      </section>
+      <section className=" px-[100px]">
+        <div className="h-[50%]">
+          <img src="https://www.apple.com/in/home-app/images/overview/hero_homepod_lockup__d8j0cm45ask2_medium_2x.jpg" />
+        </div>
+        <div>
+          <p className="  mt-[100px] font-[700] text-[32px] text-center mx-[220px]">
+            The redesigned Home app makes it easier to control all your smart
+            home accessories — on all your Apple devices. It’s secure and
+            protects your personal data. And with HomePod mini or Apple TV set
+            up as the ultimate home hub, the new Home app unlocks the full
+            potential of your smart home.
+          </p>
+        </div>
+      </section>
+      <section className="px-[100px]">
+        <p className="text-[64px] font-[600] mt-[50px]">
+          A fully renovated experience.
+        </p>
+
+        <div className=" h-[800px] w-full rounded-[30px] bg-[#fff] mt-[30px]"></div>
+      </section>
+
+      <section className=" px-[100px] mt-[30px] flex gap-[30px]">
+        <div className="h-[800px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+        <div className="h-[800px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+      </section>
+      <section className="px-[100px] my-[100px]">
+        <p className="text-[64px] font-[700] leading-tight">
+          {" "}
+          HomePod mini and Apple TV. <br /> The keys to even more control.
+        </p>
+        <p className="text-[#6e6e73] max-w-[980px] text-[32px] font-[600] mt-[20px]">
+          The Home app can do even more with the help of your HomePod mini or
+          Apple TV. Either one can be set up as a smart home hub, giving you
+          access to your home while you’re away and letting you automate all of
+          your home’s smart accessories. And your HomePod mini or Apple TV hub
+          is also an essential building block for Matter — the new smart home
+          industry standard that will be compatible with more accessories, and
+          even connect them across platforms.
+        </p>
+      </section>
+
+      <section className="h-screen px-[100px]">
+        <div className="mt-[30px]  flex gap-[30px] ">
+          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px]  flex items-center px-[90px]">
+            <div className=" flex items-center flex-col">
+              <div className="h-[100px] w-[100px] overflow-hidden  ">
+                <img src="https://www.apple.com/v/home-app/c/images/overview/icon/icon_lock__fpt8n2i4qyqi_large_2x.png" />{" "}
+              </div>
+              <p className="text-[34px] font-[700] leading-tight text-center mt-[50px]">
+                Lock doors at bedtime
+              </p>
+              <p className="text-[#86868b] text-[21px] text-center mt-[20px]">
+                Automate the locking of all the doors in your house.
+              </p>
+            </div>
+          </div>
+          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px] "></div>
+          <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px] "></div>
+        </div>
+      </section>
+
+      <section className="w-full px-[100px] pb-[100px] ">
+        <p className="font-[600] text-[64px]">
+          {" "}
+          Your data is private property.
+        </p>
+        <div className="w-full bg-[#fff] h-[600px] rounded-[30px] flex mt-[30px]">
+          <div className="  flex items-center justify-center  w-[50%]">
+            <div className="h-[400px] w-[500px] overflow-hidden ">
+              <p className="text-[32px] font-[700] leading-tight">
+                Privacy at home is more important than ever. That’s why your
+                Home app data is stored in a way that Apple can’t read it. Your
+                accessories are controlled by your Apple devices instead of the
+                cloud, and communication is encrypted end to end.
+              </p>
+            </div>
+          </div>
+          <div className="  w-[50%]"> </div>
+        </div>
+      </section>
+
+      <section className="px-[100px] pb-[50px]">
+        <p className="text-[64px] font-[700]"> Home school.</p>
+        <div className="mt-[30px] grid grid-cols-3 gap-[30px]">
+          {Homeschooldata.map((item) => {
+            return (
+              <div className=" h-[300px] bg-[#fff] rounded-[30px] p-[30px] justify-between flex flex-col">
+                <p className="text-[32px] font-[600] leading-tight">
+                  {" "}
+                  {item.title}
+                </p>
+
+                <a className="text-[#2997ff] text-[24px] font-[600]">
+                  {" "}
+                  Learn More
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+      <section className=" px-[100px] mt-[30px] flex gap-[30px] py-[100px]">
+        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+      </section>
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
