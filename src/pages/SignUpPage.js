@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase-config";
 import { collection, addDoc, getDocs, setDoc, doc } from "firebase/firestore";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-  confirmPasswordReset,
-} from "firebase/auth";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import countryList from "../raw-json/country-list.json";
 const SignUpPage = () => {
   let [newUser, setNewUser] = useState();
 
@@ -26,6 +16,8 @@ const SignUpPage = () => {
   // }
 
   // Store Users
+
+  console.log(countryList);
   let handelSave = async () => {
     try {
       await createUserWithEmailAndPassword(
@@ -47,7 +39,13 @@ const SignUpPage = () => {
   };
 
   let handelInputChange = (e) => {
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value,
+      dollarAvailable: "0",
+      dollarEarned: "0",
+      surveyCompleted: "0",
+    });
     console.log(newUser);
   };
 
@@ -85,6 +83,7 @@ const SignUpPage = () => {
                 }}
               />
             </div>
+
             <div>
               <p className="mb-[5px]"> Birth Date</p>
               <input
@@ -96,10 +95,51 @@ const SignUpPage = () => {
                 }}
               />
             </div>
+            <div className="flex flex-col gap-2">
+              <p className="">Select Gender</p>
+              <div className="flex gap-[30px]">
+                <div className="flex gap-2">
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    onChange={(e) => {
+                      handelInputChange(e);
+                    }}
+                  />
+                  <label htmlFor="male">Male</label>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    onChange={(e) => {
+                      handelInputChange(e);
+                    }}
+                  />
+                  <label htmlFor="female">Female</label>
+                </div>
+              </div>
+            </div>
             <div>
-              <input
+              <select
                 name="country"
                 placeholder="Country"
+                onChange={(e) => {
+                  handelInputChange(e);
+                }}
+                className="cutom-input"
+              >
+                {countryList.map((item) => {
+                  return <option value={item.code}>{item.name}</option>;
+                })}
+              </select>
+            </div>
+            <div>
+              <input
+                name="city"
+                placeholder="City"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
@@ -116,10 +156,21 @@ const SignUpPage = () => {
                 className="cutom-input "
               />
             </div>
+            <div>
+              <input
+                name="region"
+                placeholder="Postal Code"
+                onChange={(e) => {
+                  handelInputChange(e);
+                }}
+                className="cutom-input "
+              />
+            </div>
           </div>
           {/*  */}
           <div className="w-full flex flex-col gap-[15px]">
             <div className="">
+              <p className="mb-[5px]"> This will be your new Qunto ID.</p>
               <input
                 type="email"
                 className="cutom-input"
@@ -131,9 +182,8 @@ const SignUpPage = () => {
               />
             </div>
             <div>
-              <p className="mb-[5px]"> This will be your new Apple ID.</p>
               <input
-                type="email"
+                type="password"
                 className="cutom-input"
                 placeholder="password"
                 name="password"
@@ -144,10 +194,10 @@ const SignUpPage = () => {
             </div>
             <div className="">
               <input
-                type="email"
+                type="password"
                 className="cutom-input"
                 placeholder="Confirm Password"
-                name="confirm-password"
+                name="password"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
@@ -157,20 +207,6 @@ const SignUpPage = () => {
 
           {/*  */}
           <div className="w-full flex flex-col gap-[15px]  ">
-            <div>
-              <select
-                type="text"
-                className="cutom-input"
-                placeholder=""
-                name="country-code"
-                onChange={(e) => {
-                  handelInputChange(e);
-                }}
-              >
-                <option> +91</option>
-                <option> +92</option>
-              </select>
-            </div>
             <div className="flex gap-[15px]">
               <input
                 type="text"
@@ -181,6 +217,20 @@ const SignUpPage = () => {
                   handelInputChange(e);
                 }}
               />
+            </div>
+            <div className="flex gap-[15px]">
+              <select
+                type="text"
+                className="cutom-input"
+                placeholder="E"
+                name="mobileNum"
+                onChange={(e) => {
+                  handelInputChange(e);
+                }}
+              >
+                <option>Employee/Full</option>
+                <option>Employee/WFH</option>
+              </select>
             </div>
             <div>
               {" "}
