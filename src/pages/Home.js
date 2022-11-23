@@ -87,9 +87,10 @@ const Home = () => {
         <div className=" h-[800px] w-full rounded-[30px] bg-[#fff] mt-[30px]"></div>
       </section>
 
-      <section className=" px-[100px] mt-[30px] flex gap-[30px]">
-        <div className="h-[800px] w-[50%] bg-[#fff] rounded-[40px]"></div>
-        <div className="h-[800px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+      <section className="h-[800px] px-[100px] mt-[30px] flex gap-[30px] ">
+        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+        {/*  */}
+        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
       </section>
       <section className="px-[100px] my-[100px]">
         <p className="text-[64px] font-[700] leading-tight">
@@ -109,9 +110,12 @@ const Home = () => {
 
       <section className="h-screen px-[100px]">
         <div className="mt-[30px]  flex gap-[30px]  justify-between ">
-          {homPodCardData.map((item) => {
+          {homPodCardData.map((item, ind) => {
             return (
-              <div className="h-[500px] w-[380px] bg-[#fff] rounded-[40px]  flex items-center px-[90px]">
+              <div
+                key={ind}
+                className="h-[500px] w-[380px] bg-[#fff] rounded-[40px]  flex items-center px-[90px]"
+              >
                 <div className=" flex items-center flex-col">
                   <div className="h-[100px] w-[100px] overflow-hidden  ">
                     <img src={item.icon} />{" "}
@@ -152,16 +156,17 @@ const Home = () => {
       <section className="px-[100px] pb-[50px]">
         <p className="text-[64px] font-[700]"> Home school.</p>
         <div className="mt-[30px] grid grid-cols-3 gap-[30px]">
-          {Homeschooldata.map((item) => {
+          {Homeschooldata.map((item, ind) => {
             return (
-              <div className=" h-[300px] bg-[#fff] rounded-[30px] p-[30px] justify-between flex flex-col">
+              <div
+                key={ind}
+                className=" h-[300px] bg-[#fff] rounded-[30px] p-[30px] justify-between flex flex-col"
+              >
                 <p className="text-[32px] font-[600] leading-tight">
-                  {" "}
                   {item.title}
                 </p>
 
                 <a className="text-[#2997ff] text-[24px] font-[600]">
-                  {" "}
                   Learn More
                 </a>
               </div>

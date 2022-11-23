@@ -28,9 +28,11 @@ const NavBar = () => {
     },
   ];
 
+  let defaultLanguageCode = "es";
+
   function googleTranslateElementInit() {
     new window.google.translate.TranslateElement(
-      { pageLanguage: "en" },
+      { pageLanguage: "fr" },
       "google_translate_element"
     );
   }
@@ -47,8 +49,13 @@ const NavBar = () => {
 
   return (
     <div className="h-[48px] navbar-bg text-[#f5f5f7] flex items-center justify-center gap-[30px]  relative">
-      {navData.map((item) => {
-        return <a href={item.link}> {item.title}</a>;
+      {navData.map((item, ind) => {
+        return (
+          <a key={ind} href={item.link}>
+            {" "}
+            {item.title}
+          </a>
+        );
       })}{" "}
       <div
         id="google_translate_element"
