@@ -1,15 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { auth, db } from "../firebase-config";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const LoginPage = () => {
   let [expand, setExpand] = useState(false);
   let [userDetails, setUserDetails] = useState({});
+  let [userList, setUserList] = useState({});
+  const [user, loading, error] = useAuthState(auth);
 
   let handelInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
     console.log(userDetails);
   };
+
+  let handelLogin = async () => {
+    await signInWithEmailAndPassword(
+      auth,
+      userDetails.userId,
+      userDetails.password
+    ).then((result) => console.log("Loging Success"));
+  };
+
+  // Get user from Firebase
+  async function getUsers() {
+    const userRef = collection(db, "users");
+    const data = await getDocs(userRef);
+
+    data?.forEach((d) => {
+      // console.log(d?.id);
+      // console.log(d?.data());
+      setUserList(d?.data());
+    });
+  }
+
+  console.log(user);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <div className="h-screen w-full flex flex-col items-center  ">
@@ -28,7 +60,7 @@ const LoginPage = () => {
                 type="text"
                 className="w-full px-[10px] py-[15px] outline-none "
                 placeholder="Enter user ID"
-                name="user-id"
+                name="userId"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
@@ -55,7 +87,12 @@ const LoginPage = () => {
                   handelInputChange(e);
                 }}
               />
-              <div className="h-[59px] w-[50px] flex items-center justify-center cursor-pointer">
+              <div
+                onClick={() => {
+                  handelLogin();
+                }}
+                className="h-[59px] w-[50px] flex items-center justify-center cursor-pointer"
+              >
                 <FaRegArrowAltCircleRight className="text-3xl text-[#d2d2d7] hover:text-black" />
               </div>
             </div>

@@ -1,15 +1,19 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCV3COghlTOAh1w-7sKhAYomxDRwxOHVz8",
-  authDomain: "mirats-quanto-310ff.firebaseapp.com",
-  projectId: "mirats-quanto-310ff",
-  storageBucket: "mirats-quanto-310ff.appspot.com",
-  messagingSenderId: "231221307926",
-  appId: "1:231221307926:web:f790e844e2b3aaabd32337",
+  apiKey: "AIzaSyAO0IBzGDCaHTmAWkohr5IzUE7fSzH239U",
+  authDomain: "macer-research.firebaseapp.com",
+  databaseURL: "https://macer-research.firebaseio.com",
+  projectId: "macer-research",
+  storageBucket: "macer-research.appspot.com",
+  messagingSenderId: "714756968325",
+  appId: "1:714756968325:web:93c0428b0d60d5eadbfeec",
+  measurementId: "G-23LX3T9DPM",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);

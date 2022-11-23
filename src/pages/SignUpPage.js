@@ -1,24 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase-config";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db, auth } from "../firebase-config";
+import { collection, addDoc, getDocs, setDoc, doc } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
+} from "firebase/auth";
 
 const SignUpPage = () => {
   let [newUser, setNewUser] = useState();
 
-  async function getUsers() {
-    const userRef = collection(db, "users");
-    const data = await getDocs(userRef);
-    data?.forEach((d) => {
-      console.log(d?.id);
-      console.log(d?.data());
-    });
-  }
+  // async function getUsers() {
+  //   const userRef = collection(db, "users");
+  //   const data = await getDocs(userRef);
+  //   data?.forEach((d) => {
+  //     console.log(d?.id);
+  //     console.log(d?.data());
+  //   });
+  // }
 
   // Store Users
   let handelSave = async () => {
     try {
-      const docRef = await addDoc(collection(db, "users"), newUser);
-      alert("User Register Successfully");
+      await createUserWithEmailAndPassword(
+        auth,
+        newUser.email,
+        newUser.password
+      ).then(async (result) => {
+        const user_uid = result.user.uid;
+
+        await setDoc(doc(db, "Panellist2", user_uid), newUser, {
+          merge: true,
+        }).then(() => {
+          console.log("employee registered!");
+        });
+      });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -31,9 +53,9 @@ const SignUpPage = () => {
 
   // Get User From Firestore
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
 
   return (
     <div className="h-screen w-full flex flex-col items-center  ">
@@ -48,7 +70,7 @@ const SignUpPage = () => {
                 type="text"
                 className="cutom-input"
                 placeholder="First Name"
-                name="fname"
+                name="firstname"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
@@ -57,40 +79,46 @@ const SignUpPage = () => {
                 type="text"
                 className="cutom-input"
                 placeholder="Last Name"
-                name="lname"
+                name="lastname"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
               />
             </div>
-            <div>
-              <p className="mb-[5px]"> COUNTRY / REGION</p>
-              <select
-                name="country"
-                onChange={(e) => {
-                  handelInputChange(e);
-                }}
-                className="cutom-input "
-              >
-                <option> India</option>
-                <option> USA</option>
-              </select>
-            </div>
-
             <div>
               <p className="mb-[5px]"> Birth Date</p>
               <input
                 type="date"
                 className="cutom-input"
-                name="dob"
+                name="birthday"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
               />
             </div>
+            <div>
+              <input
+                name="country"
+                placeholder="Country"
+                onChange={(e) => {
+                  handelInputChange(e);
+                }}
+                className="cutom-input "
+              />
+            </div>
+            <div>
+              <input
+                name="region"
+                placeholder="Region"
+                onChange={(e) => {
+                  handelInputChange(e);
+                }}
+                className="cutom-input "
+              />
+            </div>
           </div>
           {/*  */}
-          <div className="w-full   flex flex-col gap-[15px]   ">
+          <div className="w-full flex flex-col gap-[15px]">
             <div className="">
               <input
                 type="email"
