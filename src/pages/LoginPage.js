@@ -10,7 +10,6 @@ const LoginPage = () => {
   let [expand, setExpand] = useState(false);
   let [userDetails, setUserDetails] = useState({});
   let [userList, setUserList] = useState({});
-  const [user, loading, error] = useAuthState(auth);
 
   let handelInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
@@ -36,8 +35,6 @@ const LoginPage = () => {
       setUserList(d?.data());
     });
   }
-
-  console.log(user);
 
   useEffect(() => {
     getUsers();

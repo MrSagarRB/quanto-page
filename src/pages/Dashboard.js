@@ -1,0 +1,21 @@
+import React, { useContext, useState } from "react";
+import { ContextProvider } from "../Context";
+
+const Dashboard = () => {
+  let { user, loading, error, logOutUser } = useContext(ContextProvider);
+
+  console.log(user);
+  return (
+    <div className="h-screen w-full  bg-black text-[#ffff] flex items-center justify-center">
+      <div className="flex flex-col items-center">
+        <p className="text-[64px] hover:text-yellow-500 hover:scale-125 duration-300 cursor-pointer">
+          This Is Your Dashboard <br />
+        </p>
+        <p className="text-[32px] text-yellow-500">{user?.email} </p>
+        <button onClick={() => logOutUser}>LogOut</button>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
