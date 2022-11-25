@@ -103,9 +103,11 @@ const LoginPage = () => {
           <label htmlFor="id1">Remember me </label>
         </div>
         <div className="w-full  flex flex-col items-center justify-center py-[20px]">
-          <a className="text-[#0070c9]">Forgotten your Apple ID or password?</a>{" "}
+          <a className="text-[#0070c9]">
+            Forgotten your Mirats ID or password?
+          </a>{" "}
           <p>
-            Do not have an Apple ID?{" "}
+            Do not have an Mirats ID?{" "}
             <Link to="/sign-up">
               {" "}
               <span className="text-[#0070c9]"> Create yours now.</span>{" "}

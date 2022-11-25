@@ -5,6 +5,9 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import countryList from "../raw-json/country-list.json";
 const SignUpPage = () => {
   let [newUser, setNewUser] = useState();
+  let [term, setTerm] = useState(false);
+  let [credential, setCredential] = useState();
+  let [validation, setValidation] = useState({ invalidPasswod: false });
 
   // async function getUsers() {
   //   const userRef = collection(db, "users");
@@ -17,24 +20,30 @@ const SignUpPage = () => {
 
   // Store Users
 
-  console.log(countryList);
   let handelSave = async () => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        newUser.email,
-        newUser.password
-      ).then(async (result) => {
-        const user_uid = result.user.uid;
+    if (credential.password === credential.confirmPassword) {
+      console.log(validation);
 
-        await setDoc(doc(db, "Panellist2", user_uid), newUser, {
-          merge: true,
-        }).then(() => {
-          console.log("employee registered!");
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          credential.email,
+          credential.password
+        ).then(async (result) => {
+          const user_uid = result.user.uid;
+
+          await setDoc(doc(db, "Panellist2", user_uid), newUser, {
+            merge: true,
+          }).then(() => {
+            console.log("employee registered!");
+          });
         });
-      });
-    } catch (e) {
-      console.error("Error adding document: ", e);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    } else {
+      setValidation({ ...validation, invalidPasswod: true });
+      alert("Password not Match");
     }
   };
 
@@ -49,12 +58,17 @@ const SignUpPage = () => {
     console.log(newUser);
   };
 
+  let handelCredentialChange = (e) => {
+    setCredential({ ...credential, [e.target.name]: e.target.value });
+  };
+
   // Get User From Firestore
 
   // useEffect(() => {
   //   getUsers();
   // }, []);
 
+  console.log(credential);
   return (
     <div className="h-screen w-full flex flex-col items-center  ">
       <div className="   w-[500px] mt-[100px]  pb-[100px]  flex flex-col items-center">
@@ -66,6 +80,7 @@ const SignUpPage = () => {
             <div className="flex gap-[20px]">
               <input
                 type="text"
+                required="true"
                 className="cutom-input"
                 placeholder="First Name"
                 name="firstname"
@@ -103,6 +118,7 @@ const SignUpPage = () => {
                     type="radio"
                     name="gender"
                     id="male"
+                    value="male"
                     onChange={(e) => {
                       handelInputChange(e);
                     }}
@@ -114,6 +130,7 @@ const SignUpPage = () => {
                     type="radio"
                     id="female"
                     name="gender"
+                    value="female"
                     onChange={(e) => {
                       handelInputChange(e);
                     }}
@@ -131,8 +148,13 @@ const SignUpPage = () => {
                 }}
                 className="cutom-input"
               >
-                {countryList.map((item) => {
-                  return <option value={item.code}>{item.name}</option>;
+                <option>Select Country</option>
+                {countryList.map((item, ind) => {
+                  return (
+                    <option key={ind} value={item.code}>
+                      {item.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -158,7 +180,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <input
-                name="region"
+                name="postalCode"
                 placeholder="Postal Code"
                 onChange={(e) => {
                   handelInputChange(e);
@@ -177,29 +199,33 @@ const SignUpPage = () => {
                 placeholder="abc@xyz.com"
                 name="email"
                 onChange={(e) => {
-                  handelInputChange(e);
+                  handelCredentialChange(e);
                 }}
               />
             </div>
             <div>
               <input
                 type="password"
-                className="cutom-input"
+                className={`cutom-input ${
+                  validation.invalidPasswod ? "border-red-500" : null
+                } `}
                 placeholder="password"
                 name="password"
                 onChange={(e) => {
-                  handelInputChange(e);
+                  handelCredentialChange(e);
                 }}
               />
             </div>
             <div className="">
               <input
                 type="password"
-                className="cutom-input"
+                className={`cutom-input ${
+                  validation.invalidPasswod ? "border-red-500" : null
+                } `}
                 placeholder="Confirm Password"
-                name="password"
+                name="confirmPassword"
                 onChange={(e) => {
-                  handelInputChange(e);
+                  handelCredentialChange(e);
                 }}
               />
             </div>
@@ -218,32 +244,60 @@ const SignUpPage = () => {
                 }}
               />
             </div>
-            <div className="flex gap-[15px]">
+            <div className="flex flex-col gap-[5px]">
+              <p className=""> Employement Status</p>
               <select
                 type="text"
                 className="cutom-input"
-                placeholder="E"
-                name="mobileNum"
+                name="employementStatus"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
               >
-                <option>Employee/Full</option>
-                <option>Employee/WFH</option>
+                <option>Employee/working full time</option>
+                <option>Employee/working part time</option>
+                <option>Currntly Unemployed</option>
+                <option>Self Employed</option>
+                <option>Home Maker</option>
               </select>
             </div>
-            <div>
-              {" "}
-              <p className="text-[14px] text-[#666]">
-                Make sure you enter a phone number you can always access. It
-                will be used to verify your identity any time you sign in on a
-                new device or web browser. Messaging or data rates may apply.
-              </p>
+            <div className="flex items-center  gap-3">
+              <input
+                onClick={(e) => {
+                  console.log(e.target.checked);
+                  setTerm(e.target.checked);
+                }}
+                type="checkbox"
+                className="w-[40px] h-[40px]"
+                id="term"
+              />
+              <label
+                htmlFor="term"
+                className="text-[14px] text-[#666] text-[14px]"
+              >
+                By clicking on this checkbox, I agree to the Quanto's —
+                <a
+                  href="http://panel.mirats.in/terms"
+                  className="text-violet-500"
+                >
+                  {" "}
+                  Terms & Conditions{" "}
+                </a>{" "}
+                and Privacy{" "}
+                <a
+                  href="http://panel.mirats.in/privacy-policy"
+                  className="text-violet-500"
+                >
+                  {" "}
+                  Policy
+                </a>{" "}
+                .
+              </label>
             </div>
           </div>
 
           {/*  */}
-          <div className=" flex justify-center">
+          <div className={`justify-center ${term ? "flex" : "hidden"} `}>
             <button
               onClick={() => {
                 handelSave();
