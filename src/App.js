@@ -6,22 +6,24 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import Cookies from "universal-cookie";
 
 const App = () => {
-  let [toggelCookies, setToggelCookies] = useState(false);
+  let [toggelCookies, setToggelCookies] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setToggelCookies(true);
-    }, 2000);
-  }, []);
+  const cookies = new Cookies();
+  cookies.set("policy", true);
+
+  let cookie = cookies.get("policy");
+
+  console.log(cookie);
 
   return (
     <div className="relative">
       <div
-        className={`bg-[#fff] ${
-          toggelCookies ? " w-[570px] p-[10px] " : "w-[0px] h-[0px]"
-        } duration-200 overflow-hidden flex  fixed bottom-6 right-[30%] shadow-md rounded-[4px] z-50`}
+        className={` ${
+          !toggelCookies ? "animationOut" : "animationIn"
+        }  bg-[#fff] w-[600px] h-[100px] p-3 overflow-hidden flex  fixed  right-[30%] shadow-md rounded-[4px] z-50`}
       >
         <div className="w-[80%] h-full text-[14px]">
           <p>
@@ -46,7 +48,9 @@ const App = () => {
         </div>
         <div className="w-[20%] flex items-center justify-center border-l">
           <p
-            onClick={() => setToggelCookies(false)}
+            onClick={() => {
+              setToggelCookies(false);
+            }}
             className="text-[#1e90ff] cursor-pointer"
           >
             Dismiss

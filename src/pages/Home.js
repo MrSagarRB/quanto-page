@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Home = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
   let Homeschooldata = [
     {
       title: "Control your home with Siri",
@@ -174,9 +175,18 @@ const Home = () => {
           })}
         </div>
       </section>
-      <section className=" px-[100px] mt-[30px] flex gap-[30px] py-[100px]">
+      <section className=" px-[100px] mt-[30px] flex gap-[30px] py-[100px] ">
         <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
         <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
+      </section>
+      <section className="w-full h-[700px] py-[50px] px-[100px]">
+        <div className=" h-full ">
+          <div className="test h-full w-[50%] test">
+            <div className="flip-card">
+              
+            </div>
+          </div>
+        </div>
       </section>
       <Footer />
     </div>

@@ -48,8 +48,6 @@ const Context = ({ children }) => {
     getUsers();
   }, []);
 
-  console.log(user?.uid);
-
   return (
     <ContextProvider.Provider value={{ user, loading, error, logOutUser }}>
       {children}
