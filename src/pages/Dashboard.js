@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { ContextProvider } from "../Context";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   let { user, loading, error, logOutUser } = useContext(ContextProvider);
+  const navigate = useNavigate();
 
-  console.log(user);
   return (
     <div className="h-screen w-full  bg-black text-[#ffff] flex items-center justify-center">
       <div className="flex flex-col items-center">
@@ -12,7 +13,14 @@ const Dashboard = () => {
           This Is Your Dashboard <br />
         </p>
         <p className="text-[32px] text-yellow-500">{user?.email} </p>
-        <button onClick={() => logOutUser}>LogOut</button>
+        <button
+          onClick={() => {
+            logOutUser();
+            navigate("/");
+          }}
+        >
+          LogOut
+        </button>
       </div>
     </div>
   );

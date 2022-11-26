@@ -2,46 +2,49 @@ import React, { useEffect, useState } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   let [expand, setExpand] = useState(false);
-  let [userDetails, setUserDetails] = useState({});
+  let [userDetails, setUserDetails] = useState({ userId: "", password: "" });
   let [userList, setUserList] = useState({});
+  let [showAlert, setShowAlert] = useState({
+    loggedInSuccess: false,
+    EmptyUserId: false,
+  });
+  const navigate = useNavigate();
 
   let handelInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
-    console.log(userDetails);
   };
 
   let handelLogin = async () => {
-    await signInWithEmailAndPassword(
-      auth,
-      userDetails.userId,
-      userDetails.password
-    ).then((result) => console.log("Loging Success"));
+    if (!userDetails.userId || !userDetails.password) {
+      setShowAlert({ ...showAlert, EmptyUserId: true });
+      setTimeout(() => {
+        setShowAlert({ ...showAlert, EmptyUserId: false });
+      }, 5000);
+    } else {
+      await signInWithEmailAndPassword(
+        auth,
+        userDetails.userId,
+        userDetails.password
+      ).then((result) => {
+        setShowAlert({ ...showAlert, loggedInSuccess: true });
+        setTimeout(() => {
+          navigate("/dashboard");
+          setShowAlert({ ...showAlert, loggedInSuccess: false });
+        }, 2000);
+      });
+    }
   };
 
-  // Get user from Firebase
-  async function getUsers() {
-    const userRef = collection(db, "users");
-    const data = await getDocs(userRef);
-
-    data?.forEach((d) => {
-      // console.log(d?.id);
-      // console.log(d?.data());
-      setUserList(d?.data());
-    });
-  }
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-
   return (
-    <div className="h-screen w-full flex flex-col items-center  ">
+    <div className="h-screen w-full flex flex-col items-center  relative">
+      <LoggedInAlert showAlert={showAlert} />
+      <EmptyUserIdAlert showAlert={showAlert} />
       <div className=" h-[500px] w-[500px] mt-[100px] flex flex-col items-center">
         <p className="text-[24px] font-[600] text-[#111]">
           Sign in to Mirats Quanto
@@ -76,7 +79,7 @@ const LoginPage = () => {
             </div>
             <div className="flex border  w-full">
               <input
-                type="text"
+                type="password"
                 className="w-full px-[10px] py-[15px] outline-none "
                 placeholder="Enter Password"
                 name="password"
@@ -84,14 +87,17 @@ const LoginPage = () => {
                   handelInputChange(e);
                 }}
               />
-              <div
+              <button
                 onClick={() => {
                   handelLogin();
                 }}
-                className="h-[59px] w-[50px] flex items-center justify-center cursor-pointer"
+                className="h-[59px] w-[50px] flex items-center justify-center"
               >
-                <FaRegArrowAltCircleRight className="text-3xl text-[#d2d2d7] hover:text-black" />
-              </div>
+                <FaRegArrowAltCircleRight
+                  className={`text-3xl text-[#d2d2d7] hover:text-black 
+                  }`}
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -117,3 +123,29 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+const LoggedInAlert = ({ showAlert }) => {
+  return (
+    <div
+      className={`${
+        showAlert.loggedInSuccess ? null : "-translate-x-[500px]"
+      }  duration-500  bg-[#198754]  fixed bottom-10 left-10 z-50 px-[60px] py-[10px] shadow-xl rounded-sm`}
+    >
+      <p className="text-[#ffff] text-[18px]">Logged In Successfully</p>
+    </div>
+  );
+};
+
+const EmptyUserIdAlert = ({ showAlert }) => {
+  return (
+    <div
+      className={`${
+        showAlert.EmptyUserId ? null : "-translate-x-[600px]"
+      }  duration-500  bg-[#ffc107]  fixed bottom-10 left-10 z-50 px-[60px] py-[10px] shadow-xl rounded-sm`}
+    >
+      <p className="text-[#fff] text-[18px]">
+        User Id & password should not be Empty
+      </p>
+    </div>
+  );
+};

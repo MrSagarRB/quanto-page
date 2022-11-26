@@ -4,7 +4,7 @@ import { ContextProvider } from "../Context";
 
 const Header = () => {
   let { user } = useContext(ContextProvider);
-  console.log(user);
+
   return (
     <div className="h-[60px] header-bg shadow-sm border-b px-[100px] flex items-center justify-between sticky top-0 ">
       <p className="text-[24px] font-[600]">Home app</p>{" "}

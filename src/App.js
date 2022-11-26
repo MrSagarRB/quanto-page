@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Context from "./Context";
+import Context, { ContextProvider } from "./Context";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
@@ -53,6 +53,7 @@ const App = () => {
           </p>
         </div>
       </div>
+
       <Context>
         <Router>
           <NavBar />

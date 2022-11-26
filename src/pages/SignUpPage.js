@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase-config";
-import { collection, addDoc, getDocs, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import countryList from "../raw-json/country-list.json";
+import { useNavigate } from "react-router-dom";
 const SignUpPage = () => {
   let [newUser, setNewUser] = useState();
   let [term, setTerm] = useState(false);
   let [credential, setCredential] = useState();
   let [validation, setValidation] = useState({ invalidPasswod: false });
 
-  // async function getUsers() {
-  //   const userRef = collection(db, "users");
-  //   const data = await getDocs(userRef);
-  //   data?.forEach((d) => {
-  //     console.log(d?.id);
-  //     console.log(d?.data());
-  //   });
-  // }
+  const navigate = useNavigate();
 
   // Store Users
 
@@ -35,7 +29,8 @@ const SignUpPage = () => {
           await setDoc(doc(db, "Panellist2", user_uid), newUser, {
             merge: true,
           }).then(() => {
-            console.log("employee registered!");
+            alert("employee registered!");
+            navigate("/login");
           });
         });
       } catch (e) {
@@ -62,13 +57,6 @@ const SignUpPage = () => {
     setCredential({ ...credential, [e.target.name]: e.target.value });
   };
 
-  // Get User From Firestore
-
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-
-  console.log(credential);
   return (
     <div className="h-screen w-full flex flex-col items-center  ">
       <div className="   w-[500px] mt-[100px]  pb-[100px]  flex flex-col items-center">
@@ -79,8 +67,8 @@ const SignUpPage = () => {
           <div className="w-full    flex flex-col gap-[15px]  mt-[20px] ">
             <div className="flex gap-[20px]">
               <input
+                required
                 type="text"
-                required="true"
                 className="cutom-input"
                 placeholder="First Name"
                 name="firstname"
@@ -88,6 +76,7 @@ const SignUpPage = () => {
                   handelInputChange(e);
                 }}
               />
+
               <input
                 type="text"
                 className="cutom-input"
@@ -180,7 +169,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <input
-                name="postalCode"
+                name="postalcode"
                 placeholder="Postal Code"
                 onChange={(e) => {
                   handelInputChange(e);
@@ -238,7 +227,7 @@ const SignUpPage = () => {
                 type="text"
                 className="cutom-input"
                 placeholder="Mobile Number"
-                name="mobileNum"
+                name="phone"
                 onChange={(e) => {
                   handelInputChange(e);
                 }}
