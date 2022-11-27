@@ -4,6 +4,8 @@ import Header from "../components/Header";
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [filpCard, setFilpCard] = useState(false);
+
   let Homeschooldata = [
     {
       title: "Control your home with Siri",
@@ -53,16 +55,16 @@ const Home = () => {
     <div className="w-full bg-slate-100 relative">
       <Header />
       <section className=" w-full h-screen flex flex-col  items-center ">
-        <div className="h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px] flex items-center justify-center">
+        <div className="animationHome h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px] flex items-center justify-center ">
           <img
             src="https://www.pngall.com/wp-content/uploads/2016/04/Home-Download-PNG.png"
             className="h-[100px] w-[100px]"
           />
         </div>
-        <div className="mt-[55px]">
+        {/* <div className="mt-[55px]">
           <p className="text-[#1d1d1f] font-[700] text-[24px]"> Home app </p>
-        </div>
-        <p className="text-[100px] font-[700] text-center leading-tight w-[80%] mt-[30px]">
+        </div> */}
+        <p className="text-[100px] font-[700] text-center leading-tight w-[80%] mt-[30px] animationHome">
           The foundation for a&nbsp;smarter home.
         </p>
       </section>
@@ -135,10 +137,7 @@ const Home = () => {
       </section>
 
       <section className="w-full px-[100px] pb-[100px] ">
-        <p className="font-[600] text-[64px]">
-          {" "}
-          Your data is private property.
-        </p>
+        <p className="font-[600] text-[64px]">Your data is private property.</p>
         <div className="w-full bg-[#fff] h-[600px] rounded-[30px] flex mt-[30px]">
           <div className="  flex items-center justify-center  w-[50%]">
             <div className="h-[400px] w-[500px] overflow-hidden ">
@@ -161,7 +160,7 @@ const Home = () => {
             return (
               <div
                 key={ind}
-                className=" h-[300px] bg-[#fff] rounded-[30px] p-[30px] justify-between flex flex-col"
+                className="hover:scale-105 duration-1000 cursor-pointer h-[300px] bg-[#fff] rounded-[30px] p-[30px] justify-between flex flex-col"
               >
                 <p className="text-[32px] font-[600] leading-tight">
                   {item.title}
@@ -176,17 +175,28 @@ const Home = () => {
         </div>
       </section>
       <section className=" px-[100px] mt-[30px] flex gap-[30px] py-[100px] ">
-        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
-        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
-      </section>
-      <section className="w-full h-[700px] py-[50px] px-[100px]">
-        <div className=" h-full ">
-          <div className="test h-full w-[50%] test">
-            <div className="flip-card">
-              
+        <div className="h-[700px] w-[50%]  rounded-[40px]">
+          <div
+            onClick={() => {
+              setFilpCard(!filpCard);
+            }}
+            className="flip-card  h-full"
+          >
+            <div className={`flip-card-inner ${filpCard ? "flip" : null}  `}>
+              <div className="flip-card-front bg-[#fff] rounded-[40px] p-[30px]  overflow-hidden">
+                <div className=" h-full w-full flex items-center justify-center">
+                  <p className="text-[84px] text-center font-[500]">
+                    Click to Flip
+                  </p>
+                </div>
+              </div>
+              <div class="flip-card-back bg-green-500 rounded-[40px] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1595327656903-2f54e37ce09b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" />
+              </div>
             </div>
           </div>
         </div>
+        <div className="h-[700px] w-[50%] bg-[#fff] rounded-[40px]"></div>
       </section>
       <Footer />
     </div>

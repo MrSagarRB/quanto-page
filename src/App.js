@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import Cookies from "universal-cookie";
+import Animations from "./pages/Animations";
 
 const App = () => {
   let [toggelCookies, setToggelCookies] = useState(true);
@@ -61,12 +62,12 @@ const App = () => {
       <Context>
         <Router>
           <NavBar />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/animation" element={<Animations />} />
           </Routes>
         </Router>
       </Context>
