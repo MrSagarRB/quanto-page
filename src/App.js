@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Context, { ContextProvider } from "./Context";
 import Dashboard from "./pages/Dashboard";
@@ -8,16 +13,19 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import Cookies from "universal-cookie";
 import Animations from "./pages/Animations";
+import { auth, db } from "./firebase-config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const App = () => {
   let [toggelCookies, setToggelCookies] = useState(true);
+  const [user, loading, error] = useAuthState(auth);
 
   const cookies = new Cookies();
   cookies.set("policy", true);
 
   let cookie = cookies.get("policy");
 
-  console.log(cookie);
+  console.log(user);
 
   return (
     <div className="relative">
@@ -64,9 +72,22 @@ const App = () => {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route
+              path="/dashboard"
+              element={user ? <Dashboard /> : <Navigate replace to="/login" />}
+            />
+            <Route
+              path="/login"
+              element={
+                !user ? <LoginPage /> : <Navigate replace to="/dashboard" />
+              }
+            />
+            <Route
+              path="/sign-up"
+              element={
+                !user ? <SignUpPage /> : <Navigate replace to="/dashboard" />
+              }
+            />
             <Route path="/animation" element={<Animations />} />
           </Routes>
         </Router>
