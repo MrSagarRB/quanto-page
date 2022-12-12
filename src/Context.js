@@ -43,6 +43,8 @@ const Context = ({ children }) => {
     // }
   }
 
+  console.log(loading);
+
   useEffect(() => {
     getUsers();
   }, []);

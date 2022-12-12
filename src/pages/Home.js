@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import NavBar from "../components/NavBar";
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -53,6 +54,7 @@ const Home = () => {
 
   return (
     <div className="w-full bg-slate-100 relative">
+      <NavBar />
       <Header />
       <section className=" w-full h-screen flex flex-col  items-center ">
         <div className="animationHome h-[150px] w-[150px] bg-[#fff] mt-[100px] rounded-[40px] flex items-center justify-center ">

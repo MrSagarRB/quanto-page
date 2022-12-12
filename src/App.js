@@ -15,6 +15,7 @@ import Cookies from "universal-cookie";
 import Animations from "./pages/Animations";
 import { auth, db } from "./firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Loader from "./components/Loader";
 
 const App = () => {
   let [toggelCookies, setToggelCookies] = useState(true);
@@ -24,8 +25,6 @@ const App = () => {
   cookies.set("policy", true);
 
   let cookie = cookies.get("policy");
-
-  console.log(user);
 
   return (
     <div className="relative">
@@ -69,12 +68,19 @@ const App = () => {
 
       <Context>
         <Router>
-          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
               path="/dashboard"
-              element={user ? <Dashboard /> : <Navigate replace to="/login" />}
+              element={
+                loading ? (
+                  <Loader />
+                ) : user ? (
+                  <Dashboard />
+                ) : (
+                  <Navigate replace to="/login" />
+                )
+              }
             />
             <Route
               path="/login"

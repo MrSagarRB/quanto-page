@@ -4,7 +4,7 @@ const NavBar = () => {
   let navData = [
     {
       title: "Store",
-      link: "#",
+      link: "/",
     },
     {
       title: "Mac",
