@@ -57,7 +57,7 @@ const Dashboard = () => {
                 placeholder="Search"
               />
 
-              <SearchIcon className="text-[#424A70]" />
+              <SearchIcon className="text-[#424A70] hover:text-[#fff] duration-300 cursor-pointer" />
             </div>
             <div className="flex gap-[22px] items-center">
               <NotificationsIcon
