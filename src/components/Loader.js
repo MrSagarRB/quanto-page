@@ -3,8 +3,8 @@ import loaderGIF from "../assets/loader.gif";
 
 const Loader = () => {
   return (
-    <div className="test h-screen flex items-center justify-center">
-      <img src={loaderGIF} />
+    <div className=" h-screen flex items-center justify-center bg-[#171B2D]">
+      <span class="loader"></span>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Analytics from "../pages/tabs/Analytics";
 import PanelistProfile from "./tabs/PanelistProfile";
 import Setting from "./tabs/Setting";
+import { Link } from "react-router-dom";
 
 let menuData = [
   {
@@ -65,7 +66,14 @@ const Dashboard = () => {
                 sx={{ fontSize: "30px" }}
               />
               <div className="flex items-center gap-[16px]">
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>SA</Avatar>
+                <Link to="/admin">
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                  >
+                    SA
+                  </Avatar>
+                </Link>
                 <div className=" flex flex-col">
                   <p className="text-[#55597D] text-[10px] font-[400]">
                     Welcome

@@ -16,6 +16,8 @@ import Animations from "./pages/Animations";
 import { auth, db } from "./firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loader from "./components/Loader";
+import Admin from "./pages/admin/Admin";
+import CreateSuery from "./pages/admin/CreateSuery";
 
 const App = () => {
   let [toggelCookies, setToggelCookies] = useState(true);
@@ -95,6 +97,8 @@ const App = () => {
               }
             />
             <Route path="/animation" element={<Animations />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/create-survey" element={<CreateSuery />} />
           </Routes>
         </Router>
       </Context>
