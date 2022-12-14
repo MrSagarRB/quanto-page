@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 
-const TextFiled = () => {
+const TextField = () => {
   let [text, setText] = useState("What is your Name?");
 
   let [editable, setEditable] = useState(false);
 
   return (
-    <div className="flex flex-col gap-[10px]">
+    <div className="flex flex-col gap-[10px] border px-[20px] py-[30px] rounded-[8px]">
       {editable ? (
         <div className="flex gap-[5px]">
           {" "}
@@ -20,12 +20,12 @@ const TextFiled = () => {
             }}
           />
           <div
-          className="text-[]"
             onClick={() => {
               setEditable(false);
             }}
+            className="cursor-pointer"
           >
-            <DoneIcon />
+            <DoneIcon className="text-[#F21010]" />
           </div>
         </div>
       ) : (
@@ -47,4 +47,4 @@ const TextFiled = () => {
   );
 };
 
-export default TextFiled;
+export default TextField;
