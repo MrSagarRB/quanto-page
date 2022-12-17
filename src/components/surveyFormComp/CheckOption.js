@@ -9,14 +9,20 @@ const CheckOption = () => {
   let [checkOption, setCheckOption] = useState([
     {
       label: "English",
+      editable: false,
     },
     {
       label: "Marathi",
+      editable: false,
     },
     {
       label: "Hindi",
+      editable: false,
     },
   ]);
+
+  let handelEditable = (ind) => {};
+  console.log(checkOption);
   return (
     <div className="flex w-full flex-col gap-[10px] border px-[20px] py-[30px] rounded-[8px]">
       {editable ? (
@@ -52,9 +58,14 @@ const CheckOption = () => {
       <div className="grid grid-cols-4 gap-3 mt-2">
         {checkOption.map((item, ind) => {
           return (
-            <div key={ind} className="flex gap-2">
+            <div key={ind} className="flex gap-[15px]">
               <input type="checkbox" />
-              <p> {item?.label}</p>
+
+              {item.editable ? (
+                <input type="text" />
+              ) : (
+                <p onClick={() => handelEditable(ind)}> {item?.label}</p>
+              )}
             </div>
           );
         })}

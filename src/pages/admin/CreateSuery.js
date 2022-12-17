@@ -25,7 +25,7 @@ const CreateSuery = () => {
   let [formTitle, setFormTitle] = useState("Survey001");
   let [editable, setEditable] = useState(false);
   let [element, setElement] = useState([]);
-  let [index, setIndex] = useState(null);
+  let [index, setIndex] = useState(0);
 
   let handelAddElement = () => {
     setElement((oldItem) => {
@@ -52,7 +52,6 @@ const CreateSuery = () => {
             })}
           </select>
           <Button
-            disabled={!index}
             variant="contained"
             onClick={() => {
               handelAddElement();

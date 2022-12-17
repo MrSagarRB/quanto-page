@@ -54,7 +54,7 @@ const RadioOptions = () => {
         </h1>
       )}
 
-      <div className="flex gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {radioBtn.map((item, ind) => {
           return (
             <div className="flex gap-3" key={ind}>
@@ -96,7 +96,7 @@ const RadioOptions = () => {
           onClick={() =>
             setRadioBtn([...radioBtn, { label: "Type", editable: false }])
           }
-          className="opacity-5 hover:opacity-80 cursor-pointer"
+          className="opacity-20 hover:opacity-80 cursor-pointer text-blue-500"
         >
           <AddIcon />
         </div>
