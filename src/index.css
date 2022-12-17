@@ -28,6 +28,11 @@
   border: 1px solid red;
 }
 
+input[type="radio"]:active {
+  accent-color: #003f9f;
+  /* accent-color: red; */
+}
+
 .cutom-input {
   @apply w-full px-[10px] py-[15px] outline-none rounded-[8px]  border;
 }

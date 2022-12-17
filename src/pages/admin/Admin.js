@@ -11,7 +11,7 @@ const Admin = () => {
   };
 
   return (
-    <div className=" h-screen w-full flex items-center justify-center test ">
+    <div className=" h-screen w-full flex items-center justify-center  ">
       <Link to="create-survey">
         <Button
           onClick={() => {

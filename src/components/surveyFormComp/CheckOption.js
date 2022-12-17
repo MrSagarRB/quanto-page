@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import DoneIcon from "@mui/icons-material/Done";
+import AddIcon from "@mui/icons-material/Add";
 
 const CheckOption = () => {
   let [text, setText] = useState("Select Language ");
   let [editable, setEditable] = useState(false);
+
+  let [checkOption, setCheckOption] = useState([
+    {
+      label: "English",
+    },
+    {
+      label: "Marathi",
+    },
+    {
+      label: "Hindi",
+    },
+  ]);
   return (
     <div className="flex w-full flex-col gap-[10px] border px-[20px] py-[30px] rounded-[8px]">
       {editable ? (
@@ -36,15 +49,22 @@ const CheckOption = () => {
           {text}
         </p>
       )}
-      <div className="flex flex-col gap-3 mt-2">
-        <div>
-          <input type="checkbox" /> English
-        </div>
-        <div>
-          <input type="checkbox" /> Marathi
-        </div>
-        <div>
-          <input type="checkbox" /> Hindi
+      <div className="grid grid-cols-4 gap-3 mt-2">
+        {checkOption.map((item, ind) => {
+          return (
+            <div key={ind} className="flex gap-2">
+              <input type="checkbox" />
+              <p> {item?.label}</p>
+            </div>
+          );
+        })}
+        <div
+          onClick={() =>
+            setCheckOption([...checkOption, { label: "Type", editable: false }])
+          }
+          className="opacity-5 hover:opacity-80 cursor-pointer"
+        >
+          <AddIcon />
         </div>
       </div>
     </div>
