@@ -3,9 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ContextProvider } from "../Context";
 
 const Header = () => {
-  let { user, loading, logOutUser } = useContext(ContextProvider);
   const navigate = useNavigate();
-  console.log(loading);
+  let { user, loading, logOutUser, userData } = useContext(ContextProvider);
 
   return (
     <div className="h-[60px] header-bg shadow-sm border-b px-[100px] flex items-center justify-between sticky top-0 z-50">

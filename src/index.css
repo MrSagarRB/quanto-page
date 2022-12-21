@@ -48,7 +48,7 @@ input[type="radio"]:active {
   animation-name: termIn;
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  animation-delay: 10s;
+  animation-delay: 2s;
   bottom: -100px;
 }
 

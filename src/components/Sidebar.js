@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Squeeze as Hamburger } from "hamburger-react";
 
 const Sidebar = ({ expand, setExpand, activeTab, setActiveTab, menuData }) => {
-  console.log(expand);
   return (
     <div className="">
       <div
@@ -21,9 +20,8 @@ const Sidebar = ({ expand, setExpand, activeTab, setActiveTab, menuData }) => {
       <div className=" flex flex-col gap-[24px] text-[#ADB3CC] mt-[60px] px-[20px] ">
         {menuData.map((item, ind) => {
           return (
-            <div className={` ${activeTab === ind && "tab"} `}>
+            <div className={` ${activeTab === ind && "tab"} `} key={ind}>
               <div
-                key={ind}
                 onClick={() => {
                   setActiveTab(ind);
                 }}

@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import StatsCard from "../../components/StatsCard";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import SearchIcon from "@mui/icons-material/Search";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import DiamondIcon from "@mui/icons-material/Diamond";
+import Context, { ContextProvider } from "../../Context";
 
 let StatsCardData = [
   {
     title: "Money Earned",
     subTitle: "The money you earned till now.",
-    value: "20.00",
+    value: "00.00",
     icon: <TrendingUpIcon />,
   },
   {
     title: "Survey Completed",
     subTitle: "Your Completed Survey. ",
-    value: "10.00",
+    value: "00.00",
+    icon: <BookmarkBorderIcon />,
   },
   {
     title: "Available Money",
     subTitle: "The money you are left with. ",
-    value: "50.00",
+    value: "00.00",
+    icon: <DiamondIcon />,
   },
 ];
 
@@ -69,7 +74,12 @@ let surveyData = [
 ];
 
 const Analytics = () => {
-  let [activeCard, setActiveCard] = useState();
+  let [activeCard, setActiveCard] = useState(0);
+  const { userData } = useContext(ContextProvider);
+
+  let { user } = useContext(ContextProvider);
+  // console.log(user.uid);
+
   return (
     <div className=" h-full w-full flex flex-col gap-[20px]">
       <div className=" w-full flex items-center justify-between">
@@ -83,10 +93,12 @@ const Analytics = () => {
           </div>
         </div>
       </div>
+
       <div className=" grid gap-[40px]  grid-cols-1 md:grid-cols-3">
         {StatsCardData.map((item, ind) => {
           return (
             <div
+              key={ind}
               onClick={() => {
                 setActiveCard(ind);
               }}
@@ -96,14 +108,13 @@ const Analytics = () => {
                 subTitle={item.subTitle}
                 value={item.value}
                 icon={item.icon}
-                setActiveCard={setActiveCard}
                 activeCard={activeCard}
+                ind={ind}
               />
             </div>
           );
         })}
       </div>
-
       <div className="flex flex-col  gap-2">
         <p className="text-[18px] font-[600] text-[#ADB3CC]">
           Available Surveys
@@ -129,22 +140,27 @@ const Analytics = () => {
       </div>
       <div className="w-full h-[800px]">
         <table id="AvailableSurveys">
-          <tr>
-            <th>Survey Code</th>
-            <th>Survey Name</th>
-            <th>Points</th>
-            <th>Participates</th>
-          </tr>
-          {surveyData.map((item) => {
+          <thead>
+            <tr>
+              <th>Survey Code</th>
+              <th>Survey Name</th>
+              <th>Points</th>
+              <th>Participates</th>
+            </tr>
+          </thead>
+
+          {surveyData.map((item, ind) => {
             return (
-              <tr className="duration-500">
-                <td>#{item.SurveyCode}</td>
-                <td> {item.SurveyName}</td>
-                <td> {item.Points}</td>
-                <td>
-                  <a href={item.link}> Participate</a>
-                </td>
-              </tr>
+              <tbody key={ind}>
+                <tr className="duration-500">
+                  <td>#{item.SurveyCode}</td>
+                  <td> {item.SurveyName}</td>
+                  <td> {item.Points}</td>
+                  <td>
+                    <a href={item.link}> Participate</a>
+                  </td>
+                </tr>
+              </tbody>
             );
           })}
         </table>

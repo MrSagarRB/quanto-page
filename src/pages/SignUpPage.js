@@ -28,9 +28,31 @@ const SignUpPage = () => {
 
           await setDoc(doc(db, "Panellist2", user_uid), newUser, {
             merge: true,
-          }).then(() => {
-            alert("employee registered!");
-            navigate("/login");
+          }).then(async () => {
+            let countryName = countryList?.filter((country) => {
+              return newUser?.country == country?.code;
+            });
+
+            console.log(countryName);
+
+            await setDoc(
+              doc(
+                db,
+                "Panel1",
+                newUser.country,
+                countryName?.[0]?.name,
+                countryName?.[0]?.name,
+                "PID",
+                user_uid
+              ),
+              newUser,
+              {
+                merge: true,
+              }
+            ).then(() => {
+              alert("employee registered!");
+              navigate("/login");
+            });
           });
         });
       } catch (e) {
@@ -260,10 +282,7 @@ const SignUpPage = () => {
                 className="w-[40px] h-[40px]"
                 id="term"
               />
-              <label
-                htmlFor="term"
-                className="text-[14px] text-[#666] text-[14px]"
-              >
+              <label htmlFor="term" className="text-[14px] text-[#666] ">
                 By clicking on this checkbox, I agree to the Quanto's —
                 <a
                   href="http://panel.mirats.in/terms"

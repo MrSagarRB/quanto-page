@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,19 +20,23 @@ import Admin from "./pages/admin/Admin";
 import CreateSuery from "./pages/admin/CreateSuery";
 
 const App = () => {
-  let [toggelCookies, setToggelCookies] = useState(true);
+  const cookies = new Cookies();
+
+  let [toggelCookies, setToggelCookies] = useState(
+    cookies.get("policy") === "true" ? true : false
+  );
   const [user, loading, error] = useAuthState(auth);
 
-  const cookies = new Cookies();
-  cookies.set("policy", true);
-
-  let cookie = cookies.get("policy");
+  let handelDismissCookies = () => {
+    cookies.set("policy", true);
+    setToggelCookies(true);
+  };
 
   return (
     <div className="relative">
       <div
         className={` ${
-          !toggelCookies ? "animationOut" : "animationIn"
+          toggelCookies ? "animationOut hidden" : "animationIn "
         }  bg-[#fff] w-[600px] h-[100px] p-3 overflow-hidden flex  fixed  right-[30%] shadow-md rounded-[4px] z-50`}
       >
         <div className="w-[80%] h-full text-[14px]">
@@ -45,7 +49,7 @@ const App = () => {
               href="https://panel.mirats.in/terms"
             >
               Terms
-            </a>{" "}
+            </a>
             &nbsp; and &nbsp;{" "}
             <a
               className="text-violet-800 font-[400] underline"
@@ -59,7 +63,7 @@ const App = () => {
         <div className="w-[20%] flex items-center justify-center border-l">
           <p
             onClick={() => {
-              setToggelCookies(false);
+              handelDismissCookies();
             }}
             className="text-[#1e90ff] cursor-pointer"
           >
