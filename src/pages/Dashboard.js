@@ -37,8 +37,6 @@ const Dashboard = () => {
   let [toggelProfile, setToggelProfile] = useState(false);
   let { user, loading, logOutUser, userData } = useContext(ContextProvider);
 
-  console.log(userData);
-
   let handelProfile = () => {
     setToggelProfile(!toggelProfile);
   };
@@ -90,9 +88,11 @@ const Dashboard = () => {
                       Welcome
                     </p>
                     <p className="text-[#ADB3CC] text-[16px] font-[600]  hover:text-[#42BBFF] cursor-pointer duration-300">
-                      {userData.firstname
-                        ? userData.firstname + " " + userData.lastname
-                        : "Loading"}
+                      {userData.firstname ? (
+                        userData.firstname + " " + userData.lastname
+                      ) : (
+                        <span className="loader"></span>
+                      )}
                       <ArrowDropDownIcon
                         onClick={() => {
                           handelProfile();
@@ -102,7 +102,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               ) : (
-                <p className="text-[#fff] animate-pulse">Loading</p>
+                <span className="loader"></span>
               )}
 
               {/*  */}
@@ -111,13 +111,12 @@ const Dashboard = () => {
           <div
             className={` ${
               toggelProfile ? "h-[200px]" : "h-0"
-            }  w-[170px] absolute right-[30px] rounded-[8px] bg-red-200 duration-300 overflow-hidden flex items-end justify-center `}
+            }  w-[170px] absolute right-[30px] rounded-[8px] bg-[#2E3757] duration-300 overflow-hidden flex items-end justify-center `}
           >
             <button
               className="border px-[20px] py-[5px] bg-[#0329E8] text-[#fff] rounded-[8px]"
               onClick={() => logOutUser()}
             >
-              {" "}
               Sign Out
             </button>
           </div>

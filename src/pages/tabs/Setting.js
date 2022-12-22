@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ChangePassword from "../../components/forms/ChangePassword";
 import DeleteAccount from "../../components/forms/DeleteAccount";
 import PersonalInformation from "../../components/forms/PersonalInformation";
 import UnsubscribeAccount from "../../components/forms/UnsubscribeAccount";
+import { ContextProvider } from "../../Context";
 
 const Setting = () => {
   let [activeTab, setActiveTab] = useState(0);
+  let { user, loading, logOutUser, userData } = useContext(ContextProvider);
 
   let tabData = [
     {
@@ -27,7 +29,7 @@ const Setting = () => {
   ];
 
   let tabComponents = [
-    <PersonalInformation />,
+    <PersonalInformation userData={userData} user={user} />,
     <ChangePassword />,
     <DeleteAccount />,
     <UnsubscribeAccount />,

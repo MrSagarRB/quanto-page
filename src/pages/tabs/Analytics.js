@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StatsCard from "../../components/StatsCard";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import Context, { ContextProvider } from "../../Context";
+import axios from "axios";
 
 let StatsCardData = [
   {
@@ -75,10 +76,25 @@ let surveyData = [
 
 const Analytics = () => {
   let [activeCard, setActiveCard] = useState(0);
+  let [allSurveys, setAllSurveys] = useState();
   const { userData } = useContext(ContextProvider);
 
   let { user } = useContext(ContextProvider);
   // console.log(user.uid);
+
+  let getSurveys = async () => {
+    await axios
+      .get(
+        `https://console.miratsoneservices.com/get-all-surveys?size=10&page1`
+      )
+      .then((res) => setAllSurveys(res.data));
+  };
+
+  useEffect(() => {
+    getSurveys(allSurveys);
+  }, []);
+
+  console.log(allSurveys);
 
   return (
     <div className=" h-full w-full flex flex-col gap-[20px]">
@@ -138,32 +154,38 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[800px]">
-        <table id="AvailableSurveys">
-          <thead>
-            <tr>
-              <th>Survey Code</th>
-              <th>Survey Name</th>
-              <th>Points</th>
-              <th>Participates</th>
-            </tr>
-          </thead>
+      <div className="w-full h-[500px]  overflow-y-scroll">
+        {allSurveys ? (
+          <table id="AvailableSurveys">
+            <thead>
+              <tr>
+                <th>Survey Code</th>
+                <th>Survey Name</th>
+                <th>Points</th>
+                <th>Participates</th>
+              </tr>
+            </thead>
 
-          {surveyData.map((item, ind) => {
-            return (
-              <tbody key={ind}>
-                <tr className="duration-500">
-                  <td>#{item.SurveyCode}</td>
-                  <td> {item.SurveyName}</td>
-                  <td> {item.Points}</td>
-                  <td>
-                    <a href={item.link}> Participate</a>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          })}
-        </table>
+            {allSurveys?.map((item, ind) => {
+              return (
+                <tbody key={ind}>
+                  <tr className="duration-500">
+                    <td>#{item?.survey_id}</td>
+                    <td> {item?.survey_name}</td>
+                    <td> {item?.Points}</td>
+                    <td>
+                      <a href={item.link}> Participate</a>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+        ) : (
+          <div className="h-full w-full flex items-center justify-center">
+            <span className="loader"></span>
+          </div>
+        )}
       </div>
     </div>
   );
