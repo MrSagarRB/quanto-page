@@ -122,7 +122,7 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
-        <div className=" text-white bg-[#171B2D] px-[30px] py-[60px] ">
+        <div className=" text-white min-h-screen bg-[#171B2D] px-[30px] py-[60px] ">
           {menuData[activeTab]?.tab}
         </div>
       </div>

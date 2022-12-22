@@ -246,6 +246,23 @@ input[type="radio"]:active {
   animation-delay: 0.4s;
 }
 
+.form-container {
+  @apply px-[30px] pt-[20px] pb-[40px] flex flex-col gap-[20px] duration-300;
+}
+
+.form-container p {
+  @apply mb-[10px];
+}
+
+.form-container input,
+select {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.41);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 16px;
+}
+
 @keyframes rotate {
   0% {
     transform: translate(-50%, -50%) rotateZ(0deg);
