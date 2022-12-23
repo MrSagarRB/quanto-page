@@ -13,6 +13,7 @@ import PanelistProfile from "./tabs/PanelistProfile";
 import Setting from "./tabs/Setting";
 import { Link } from "react-router-dom";
 import { ContextProvider } from "../Context";
+import { useNavigate } from "react-router-dom";
 
 let menuData = [
   {
@@ -39,6 +40,9 @@ const Dashboard = () => {
 
   let handelProfile = () => {
     setToggelProfile(!toggelProfile);
+    setTimeout(() => {
+      setToggelProfile(false);
+    }, 5000);
   };
   return (
     <div className=" h-screen w-full bg-[#0D1519]   flex">
@@ -75,29 +79,29 @@ const Dashboard = () => {
               {/*  */}
               {userData.firstname ? (
                 <div className="flex items-center gap-[16px] tes">
-                  <Link to="/admin">
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                    >
-                      SA
-                    </Avatar>
-                  </Link>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                  >
+                    SA
+                  </Avatar>
+
                   <div className=" flex flex-col w-[150px] ">
                     <p className="text-[#55597D] text-[10px] font-[400]">
                       Welcome
                     </p>
-                    <p className="text-[#ADB3CC] text-[16px] font-[600]  hover:text-[#42BBFF] cursor-pointer duration-300">
+                    <p
+                      onClick={() => {
+                        handelProfile();
+                      }}
+                      className="text-[#ADB3CC] text-[16px] font-[600]  hover:text-[#42BBFF] cursor-pointer duration-300"
+                    >
                       {userData.firstname ? (
                         userData.firstname + " " + userData.lastname
                       ) : (
                         <span className="loader"></span>
                       )}
-                      <ArrowDropDownIcon
-                        onClick={() => {
-                          handelProfile();
-                        }}
-                      />
+                      <ArrowDropDownIcon />
                     </p>
                   </div>
                 </div>
@@ -113,12 +117,12 @@ const Dashboard = () => {
               toggelProfile ? "h-[200px]" : "h-0"
             }  w-[170px] absolute right-[30px] rounded-[8px] bg-[#2E3757] duration-300 overflow-hidden flex items-end justify-center `}
           >
-            <button
-              className="border px-[20px] py-[5px] bg-[#0329E8] text-[#fff] rounded-[8px]"
-              onClick={() => logOutUser()}
-            >
-              Sign Out
-            </button>
+            <div className=" w-full h-full relative">
+              <div className=" text-[#fff] cursor-pointer absolute bottom-[20px] left-[30%] flex flex-col gap-[10px] ">
+                <p>Setting </p>
+                <p onClick={() => logOutUser()}>Sign Out </p>
+              </div>
+            </div>
           </div>
         </div>
         <div className=" text-white min-h-screen bg-[#171B2D] px-[30px] py-[60px] ">

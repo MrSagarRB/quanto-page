@@ -1,9 +1,14 @@
+import { Avatar } from "@mui/material";
 import React, { useContext, useState } from "react";
 import ChangePassword from "../../components/forms/ChangePassword";
 import DeleteAccount from "../../components/forms/DeleteAccount";
 import PersonalInformation from "../../components/forms/PersonalInformation";
 import UnsubscribeAccount from "../../components/forms/UnsubscribeAccount";
 import { ContextProvider } from "../../Context";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import HttpsIcon from "@mui/icons-material/Https";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UnsubscribeIcon from "@mui/icons-material/Unsubscribe";
 
 const Setting = () => {
   let [activeTab, setActiveTab] = useState(0);
@@ -12,19 +17,19 @@ const Setting = () => {
   let tabData = [
     {
       title: "Profile Details",
-      icon: "",
+      icon: <ManageAccountsIcon />,
     },
     {
       title: "Change Password",
-      icon: "",
+      icon: <HttpsIcon />,
     },
     {
       title: "Delete Account",
-      icon: "",
+      icon: <DeleteIcon />,
     },
     {
       title: "Unsubscribe Quanto",
-      icon: "",
+      icon: <UnsubscribeIcon />,
     },
   ];
 
@@ -46,7 +51,13 @@ const Setting = () => {
         <div className=" flex gap-[20px] h-full mt-[46px] ">
           <div className="h-[300px] w-[350px] bg-[#2E3757] rounded-[12px]  ">
             <div className="w-full h-[20%] flex items-center border-b border-b-[#DFE4FF33]  gap-[17px] p-[22px]">
-              <div className="h-[50px] w-[50px] bg-[#D9D9D9] rounded-full"></div>
+              {/* <div className="h-[50px] w-[50px] bg-[#D9D9D9] rounded-full"></div> */}
+              <Avatar
+                alt="Remy Sharp"
+                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+              >
+                SA
+              </Avatar>
               <p>Sagar Borude</p>
             </div>
             <div className="h-[80%] flex flex-col gap-[20px]  p-[30px] ">
@@ -61,9 +72,12 @@ const Setting = () => {
                   >
                     <div
                       className={`${
-                        ind === activeTab ? "bg-[#42BBFF]" : "bg-[#D9D9D9] "
-                      } w-[24px] h-[24px] rounded-full `}
-                    ></div>{" "}
+                        ind === activeTab ? "text-[#42BBFF]" : "text-[#D9D9D9] "
+                      } flex items-center justify-center rounded-full `}
+                    >
+                      {" "}
+                      {item.icon}{" "}
+                    </div>{" "}
                     <p
                       className={` ${
                         ind === activeTab

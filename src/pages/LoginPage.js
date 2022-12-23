@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   let [expand, setExpand] = useState(false);
   let [userDetails, setUserDetails] = useState({ userId: "", password: "" });
-  let [userList, setUserList] = useState({});
   let [showAlert, setShowAlert] = useState({
     loggedInSuccess: false,
     EmptyUserId: false,
+    wrongUserName: false,
   });
   const navigate = useNavigate();
 
@@ -31,13 +31,22 @@ const LoginPage = () => {
         auth,
         userDetails.userId,
         userDetails.password
-      ).then((result) => {
-        setShowAlert({ ...showAlert, loggedInSuccess: true });
-        setTimeout(() => {
-          navigate("/dashboard");
-          setShowAlert({ ...showAlert, loggedInSuccess: false });
-        }, 2000);
-      });
+      )
+        .then((result, err) => {
+          console.log(err);
+          setShowAlert({ ...showAlert, loggedInSuccess: true });
+          setTimeout(() => {
+            navigate("/dashboard");
+            setShowAlert({ ...showAlert, loggedInSuccess: false });
+          }, 2000);
+        })
+        .catch((error) => {
+          setShowAlert({ ...showAlert, wrongUserName: true });
+          setTimeout(() => {
+            setShowAlert({ ...showAlert, wrongUserName: false });
+          }, 2000);
+          console.log(error.code);
+        });
     }
   };
 
@@ -45,6 +54,7 @@ const LoginPage = () => {
     <div className="h-screen w-full flex flex-col items-center  relative">
       <LoggedInAlert showAlert={showAlert} />
       <EmptyUserIdAlert showAlert={showAlert} />
+      <WrongUserIdPass showAlert={showAlert} />
       <div className=" h-[500px] w-[500px] mt-[100px] flex flex-col items-center">
         <p className="text-[24px] font-[600] text-[#111]">
           Sign in to Mirats Quanto
@@ -146,6 +156,18 @@ const EmptyUserIdAlert = ({ showAlert }) => {
       <p className="text-[#fff] text-[18px]">
         User Id & password should not be Empty
       </p>
+    </div>
+  );
+};
+
+const WrongUserIdPass = ({ showAlert }) => {
+  return (
+    <div
+      className={`${
+        showAlert.wrongUserName ? null : "-translate-x-[600px]"
+      }  duration-500  bg-[#dc3545] fixed bottom-10 left-10 z-50 px-[60px] py-[10px] shadow-xl rounded-sm`}
+    >
+      <p className="text-[#fff] text-[18px]">Username password not match</p>
     </div>
   );
 };

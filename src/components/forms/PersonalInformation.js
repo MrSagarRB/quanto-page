@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import countryList from "../../raw-json/country-list.json";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
+import { useNavigate } from "react-router-dom";
 
 const PersonalInformation = ({ userData, user }) => {
   let [updatedUser, setUpdatedUser] = useState();
+  const navigate = useNavigate();
 
   let handelInputChange = (e) => {
-    setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
+    console.log({ [e.target.name]: e.target.value });
+    setUpdatedUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   console.log(user.uid);
 
   let handelUpadteUser = async () => {
     const docRef = doc(db, "Panellist2", user.uid);
+    console.log(updatedUser);
     await updateDoc(docRef, updatedUser).then(alert("Updated"));
   };
 
@@ -90,7 +94,11 @@ const PersonalInformation = ({ userData, user }) => {
           placeholder="sagar.html5@gmail.com"
         >
           {countryList.map((item, ind) => {
-            return <option key={ind}>{item.name}</option>;
+            return (
+              <option key={ind} value={item?.code}>
+                {item.name}
+              </option>
+            );
           })}
         </select>
       </div>

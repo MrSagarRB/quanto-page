@@ -12,19 +12,19 @@ let StatsCardData = [
   {
     title: "Money Earned",
     subTitle: "The money you earned till now.",
-    value: "00.00",
+    value: "00",
     icon: <TrendingUpIcon />,
   },
   {
     title: "Survey Completed",
     subTitle: "Your Completed Survey. ",
-    value: "00.00",
+    value: "00",
     icon: <BookmarkBorderIcon />,
   },
   {
     title: "Available Money",
     subTitle: "The money you are left with. ",
-    value: "00.00",
+    value: "00",
     icon: <DiamondIcon />,
   },
 ];
@@ -77,22 +77,29 @@ let surveyData = [
 const Analytics = () => {
   let [activeCard, setActiveCard] = useState(0);
   let [allSurveys, setAllSurveys] = useState();
-  const { userData } = useContext(ContextProvider);
+  let [numOfSurveys, setNumOfSurveys] = useState("10");
 
-  let { user } = useContext(ContextProvider);
+  let { user, userData } = useContext(ContextProvider);
   // console.log(user.uid);
 
   let getSurveys = async () => {
     await axios
       .get(
-        `https://console.miratsoneservices.com/get-all-surveys?size=10&page1`
+        `https://console.miratsoneservices.com/get-all-surveys?size=10000&page1`
       )
-      .then((res) => setAllSurveys(res.data));
+      .then((res) => {
+        setAllSurveys(
+          res.data.filter((item) => {
+            return item.country.country === userData?.country;
+          })
+        );
+      });
   };
 
   useEffect(() => {
     getSurveys(allSurveys);
-  }, []);
+    // let allSurveys = allSurveys?.slice(0, 10);
+  }, [userData?.country, numOfSurveys]);
 
   console.log(allSurveys);
 
@@ -136,11 +143,17 @@ const Analytics = () => {
           Available Surveys
         </p>
         <div className=" flex justify-between ">
-          <div className="text-[16px]">
+          <div className="text-[16px]  flex gap-[10px] items-center">
             Show{" "}
-            <select className="text-white rounded-[2px] bg-[#1c2033]">
-              <option> 10 </option>
-            </select>{" "}
+            <select
+              onChange={(e) => setNumOfSurveys(e.target.value)}
+              className="text-white rounded-[2px] bg-[#1c2033]"
+            >
+              <option> 05 </option>
+              <option> 30 </option>
+              <option> 50 </option>
+              <option> 100 </option>
+            </select>
             entries
           </div>
           <div className="w-[370px] bg-[#1D2032] h-[35px] rounded-[8px] overflow-hidden  text-[#fff] flex items-center px-[10px]">
@@ -154,7 +167,7 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[500px]  overflow-y-scroll">
+      <div className="w-full h-[500px] relative  overflow-y-scroll">
         {allSurveys ? (
           <table id="AvailableSurveys">
             <thead>
@@ -172,7 +185,7 @@ const Analytics = () => {
                   <tr className="duration-500">
                     <td>#{item?.survey_id}</td>
                     <td> {item?.survey_name}</td>
-                    <td> {item?.Points}</td>
+                    <td> 40</td>
                     <td>
                       <a href={item.link}> Participate</a>
                     </td>
