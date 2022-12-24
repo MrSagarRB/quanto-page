@@ -77,7 +77,7 @@ let surveyData = [
 const Analytics = () => {
   let [activeCard, setActiveCard] = useState(0);
   let [allSurveys, setAllSurveys] = useState();
-  let [numOfSurveys, setNumOfSurveys] = useState("10");
+  let [numOfSurveys, setNumOfSurveys] = useState("5");
 
   let { user, userData } = useContext(ContextProvider);
   // console.log(user.uid);
@@ -90,7 +90,10 @@ const Analytics = () => {
       .then((res) => {
         setAllSurveys(
           res.data.filter((item) => {
-            return item.country.country === userData?.country;
+            return (
+              item.country.country === userData?.country &&
+              item.status === "live"
+            );
           })
         );
       });
@@ -101,7 +104,8 @@ const Analytics = () => {
     // let allSurveys = allSurveys?.slice(0, 10);
   }, [userData?.country, numOfSurveys]);
 
-  console.log(allSurveys);
+  let filterdSurveys = allSurveys?.slice(0, numOfSurveys);
+  console.log(filterdSurveys);
 
   return (
     <div className=" h-full w-full flex flex-col gap-[20px]">
@@ -150,7 +154,7 @@ const Analytics = () => {
               className="text-white rounded-[2px] bg-[#1c2033]"
             >
               <option> 05 </option>
-              <option> 30 </option>
+              <option> 10 </option>
               <option> 50 </option>
               <option> 100 </option>
             </select>
@@ -179,7 +183,7 @@ const Analytics = () => {
               </tr>
             </thead>
 
-            {allSurveys?.map((item, ind) => {
+            {filterdSurveys?.map((item, ind) => {
               return (
                 <tbody key={ind}>
                   <tr className="duration-500">
