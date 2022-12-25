@@ -9,6 +9,8 @@ export const ContextProvider = createContext();
 const Context = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
   const [userData, setUserData] = useState({});
+  let [answers, setAnswers] = useState();
+  let [check, setCheck] = useState([]);
 
   let logOutUser = () => {
     signOut(auth)
@@ -58,7 +60,26 @@ const Context = ({ children }) => {
     }
   }
 
-  // console.log(userData);
+  let handelInputChange = (e) => {
+    setAnswers({
+      ...answers,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  let hanedlInputCheck = (e) => {
+    if (e.target.checked) {
+      setCheck([
+        ...check,
+        {
+          ans: e.target.value,
+          id: e.target.id,
+        },
+      ]);
+    } else {
+      setCheck(check.filter((item) => item.id !== item.id));
+    }
+  };
 
   useEffect(() => {
     getUserData();
@@ -68,9 +89,20 @@ const Context = ({ children }) => {
     getUsers();
   }, []);
 
+  console.log(check);
+  console.log(answers);
+
   return (
     <ContextProvider.Provider
-      value={{ user, loading, error, logOutUser, userData }}
+      value={{
+        user,
+        loading,
+        error,
+        logOutUser,
+        userData,
+        handelInputChange,
+        hanedlInputCheck,
+      }}
     >
       {children}
     </ContextProvider.Provider>

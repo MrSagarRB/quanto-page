@@ -267,6 +267,40 @@ select {
   padding: 8px 16px;
 }
 
+.quetion-container input[type="text"] {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.41);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 16px;
+}
+
+.quetion-container input[type="date"],
+.quetion-container input[type="text"] {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.41);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 16px;
+}
+
+.quetion-container h3 {
+  @apply text-[16px];
+}
+
+.options {
+  font-size: 14px;
+  /* width: 400px; */
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.251);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @keyframes rotate {
   0% {
     transform: translate(-50%, -50%) rotateZ(0deg);
@@ -311,4 +345,14 @@ select {
   87% {
     box-shadow: 0.5em -0.5em 0 0 currentcolor;
   }
+}
+
+/* Quetions Page */
+
+.radio-btn {
+  display: none;
+}
+
+.radio-btn:checked + .text1 {
+  background-color: #009580;
 }

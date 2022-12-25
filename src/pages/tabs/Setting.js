@@ -50,7 +50,7 @@ const Setting = () => {
         <p>Update Basic Profile Settings</p>
         <div className=" flex gap-[20px] h-full mt-[46px] ">
           <div className="h-[300px] w-[350px] bg-[#2E3757] rounded-[12px]  ">
-            <div className="w-full h-[20%] flex items-center border-b border-b-[#DFE4FF33]  gap-[17px] p-[22px]">
+            <div className="w-full h-[20%] flex items-center border-b border-b-[#DFE4FF33]  gap-[17px] p-[22px] ">
               {/* <div className="h-[50px] w-[50px] bg-[#D9D9D9] rounded-full"></div> */}
               <Avatar
                 alt="Remy Sharp"

@@ -60,7 +60,7 @@ const Dashboard = () => {
         />
       </div>
       <div className=" overflow-y-scroll relative w-full ">
-        <div className="h-[60px] w-full sticky top-0  bg-[#171B2D]  ">
+        <div className="h-[60px] w-full sticky top-0  bg-[#171B2D]  z-50  ">
           <div className=" h-full flex items-center justify-between px-[30px] ">
             <div className="w-[370px] bg-[#1D2032] h-[35px] rounded-[8px] overflow-hidden  text-[#fff] flex items-center px-[10px]">
               <input
@@ -125,7 +125,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className=" text-white min-h-screen bg-[#171B2D] px-[30px] py-[60px] ">
+        <div className=" text-white min-h-screen bg-[#171B2D] px-[30px] py-[50px]  ">
           {menuData[activeTab]?.tab}
         </div>
       </div>

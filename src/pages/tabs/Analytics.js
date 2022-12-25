@@ -80,7 +80,6 @@ const Analytics = () => {
   let [numOfSurveys, setNumOfSurveys] = useState("5");
 
   let { user, userData } = useContext(ContextProvider);
-  // console.log(user.uid);
 
   let getSurveys = async () => {
     await axios
@@ -105,7 +104,6 @@ const Analytics = () => {
   }, [userData?.country, numOfSurveys]);
 
   let filterdSurveys = allSurveys?.slice(0, numOfSurveys);
-  console.log(filterdSurveys);
 
   return (
     <div className=" h-full w-full flex flex-col gap-[20px]">
