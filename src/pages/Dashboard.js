@@ -117,12 +117,12 @@ const Dashboard = () => {
           </div>
           <div
             className={` ${
-              toggelProfile ? "h-[200px]" : "h-0"
+              toggelProfile ? "h-[100px]" : "h-0"
             }  w-[170px] absolute right-[30px] rounded-[8px] bg-[#2E3757] duration-300 overflow-hidden flex items-end justify-center `}
           >
             <div className=" w-full h-full relative">
               <div className=" text-[#fff] cursor-pointer absolute bottom-[20px] left-[30%] flex flex-col gap-[10px] ">
-                <p>Setting </p>
+                <p onClick={() => setActiveTab(2)}>Setting </p>
                 <p onClick={() => logOutUser()}>Sign Out </p>
               </div>
             </div>
