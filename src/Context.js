@@ -11,6 +11,7 @@ const Context = ({ children }) => {
   const [userData, setUserData] = useState({});
   let [answers, setAnswers] = useState();
   let [check, setCheck] = useState([]);
+  let [index, setIndex] = useState(0);
 
   let logOutUser = () => {
     signOut(auth)
@@ -64,6 +65,7 @@ const Context = ({ children }) => {
     setAnswers({
       ...answers,
       [e.target.name]: e.target.value,
+      4: check,
     });
   };
 
@@ -89,9 +91,6 @@ const Context = ({ children }) => {
     getUsers();
   }, []);
 
-  console.log(check);
-  console.log(answers);
-
   return (
     <ContextProvider.Provider
       value={{
@@ -102,6 +101,9 @@ const Context = ({ children }) => {
         userData,
         handelInputChange,
         hanedlInputCheck,
+        index,
+        answers,
+        setIndex,
       }}
     >
       {children}

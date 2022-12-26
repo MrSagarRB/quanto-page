@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import RadioOptions from "../../components/questions/RadioOptions";
-import { ContextProvider } from "../../Context";
 import Date from "../../components/questions/Date";
 
 const Page1 = () => {
-  let { handelInputChange } = useContext(ContextProvider);
-
   let question2Options = [
     {
       title: "Less than high school degree",

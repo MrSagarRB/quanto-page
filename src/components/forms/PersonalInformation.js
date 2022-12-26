@@ -9,11 +9,10 @@ const PersonalInformation = ({ userData, user }) => {
   const navigate = useNavigate();
 
   let handelInputChange = (e) => {
-    console.log({ [e.target.name]: e.target.value });
     setUpdatedUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log(user.uid);
+  console.log(updatedUser);
 
   let handelUpadteUser = async () => {
     const docRef = doc(db, "Panellist2", user.uid);

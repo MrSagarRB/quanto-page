@@ -44,6 +44,7 @@ const Dashboard = () => {
       setToggelProfile(false);
     }, 5000);
   };
+
   return (
     <div className=" h-screen w-full bg-[#0D1519]   flex">
       <div
@@ -76,6 +77,7 @@ const Dashboard = () => {
                 className="text-[#ADB3CC]"
                 sx={{ fontSize: "30px" }}
               />
+              <p className="text-[#fff]">{userData?.country}</p>
               {/*  */}
               {userData.firstname ? (
                 <div className="flex items-center gap-[16px] tes">
