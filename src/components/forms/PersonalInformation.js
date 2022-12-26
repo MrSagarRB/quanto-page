@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import countryList from "../../raw-json/country-list.json";
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, doc, Firestore, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { useNavigate } from "react-router-dom";
+import firebase from "firebase/app";
+import { ContextProvider } from "../../Context";
+
 
 const PersonalInformation = ({ userData, user }) => {
-  let [updatedUser, setUpdatedUser] = useState();
+  let [updatedUser, setUpdatedUser ] = useState();
   const navigate = useNavigate();
+  let { getUserData } = useContext(ContextProvider);
+
 
   let handelInputChange = (e) => {
     setUpdatedUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -14,11 +19,29 @@ const PersonalInformation = ({ userData, user }) => {
 
   console.log(updatedUser);
 
-  let handelUpadteUser = async () => {
-    const docRef = doc(db, "Panellist2", user.uid);
+  const handelUpadteUser = async () => {
+    const docRef = doc(db, "Panellist2", user.uid)
+    onSnapshot(docRef , (snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        setUpdatedUser(() => [ doc.data()])
+      })
+  })
     console.log(updatedUser);
     await updateDoc(docRef, updatedUser).then(alert("Updated"));
+    getUserData()
+
   };
+//   useEffect(() => {
+//     const cRef = collection(db, "Panellist2")
+//     //real time update
+//     onSnapshot(cRef, (snapshot) => {
+//         snapshot.docs.forEach((doc) => {
+//           setUpdatedUser(() => [ doc.data()])
+//         })
+//     })
+//     handelUpadteUser()
+// }, [])
+  
 
   return (
     <div className="form-container">

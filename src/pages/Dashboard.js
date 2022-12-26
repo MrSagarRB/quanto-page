@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Avatar } from "@mui/material";
@@ -14,6 +14,8 @@ import Setting from "./tabs/Setting";
 import { Link } from "react-router-dom";
 import { ContextProvider } from "../Context";
 import { useNavigate } from "react-router-dom";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 let menuData = [
   {
@@ -36,7 +38,7 @@ const Dashboard = () => {
   let [expand, setExpand] = useState(false);
 
   let [toggelProfile, setToggelProfile] = useState(false);
-  let { logOutUser, userData, activeTab, setActiveTab } =
+  let { logOutUser, userData , activeTab, setActiveTab } =
     useContext(ContextProvider);
 
   let handelProfile = () => {
@@ -45,6 +47,7 @@ const Dashboard = () => {
       setToggelProfile(false);
     }, 5000);
   };
+
 
   return (
     <div className=" h-screen w-full bg-[#0D1519]   flex">

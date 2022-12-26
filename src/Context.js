@@ -100,6 +100,7 @@ const Context = ({ children }) => {
         error,
         logOutUser,
         userData,
+        setUserData,
         handelInputChange,
         hanedlInputCheck,
         index,
@@ -107,6 +108,7 @@ const Context = ({ children }) => {
         setIndex,
         activeTab,
         setActiveTab,
+        getUserData
       }}
     >
       {children}
