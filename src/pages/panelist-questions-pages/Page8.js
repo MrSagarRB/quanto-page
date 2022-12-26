@@ -30,10 +30,6 @@ const Page8 = () => {
     },
   ];
 
-  let handelSubmit = () => {
-    console.log("Click");
-  };
-
   return (
     <div className="quetion-container h-full flex flex-col gap-[30px] overflow-y-scroll scroll-smooth w-full bg-[#2E3757] rounded-[12px] p-[20px]">
       <RadioOptions

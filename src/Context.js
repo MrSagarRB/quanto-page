@@ -12,6 +12,7 @@ const Context = ({ children }) => {
   let [answers, setAnswers] = useState();
   let [check, setCheck] = useState([]);
   let [index, setIndex] = useState(0);
+  let [activeTab, setActiveTab] = useState(0);
 
   let logOutUser = () => {
     signOut(auth)
@@ -104,6 +105,8 @@ const Context = ({ children }) => {
         index,
         answers,
         setIndex,
+        activeTab,
+        setActiveTab,
       }}
     >
       {children}

@@ -34,9 +34,10 @@ let menuData = [
 ];
 const Dashboard = () => {
   let [expand, setExpand] = useState(false);
-  let [activeTab, setActiveTab] = useState(0);
+
   let [toggelProfile, setToggelProfile] = useState(false);
-  let { user, loading, logOutUser, userData } = useContext(ContextProvider);
+  let { logOutUser, userData, activeTab, setActiveTab } =
+    useContext(ContextProvider);
 
   let handelProfile = () => {
     setToggelProfile(!toggelProfile);
